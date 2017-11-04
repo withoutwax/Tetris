@@ -6,7 +6,7 @@ int boardWidth = 10;
 int boardHeight = 20;
 float speed = 1;
 int currentShape = 1;
-boolean wallHit = false;
+boolean hitBottom = false;
 
 ArrayList<Block> blocks = new ArrayList<Block>();
 ArrayList<Block> boardBlocks = new ArrayList<Block>();

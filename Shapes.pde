@@ -48,6 +48,7 @@ class Shapes {
     //}
     
     // Check the bottom (whether the shape is touching or not)
+    /*
     if (blocks.get(3).y+1 == boardHeight) {
       fill(255, 0, 0);
       rect(0, boardHeight*scl, boardWidth*scl, scl);
@@ -57,6 +58,34 @@ class Shapes {
         boardBlocks.add(new Block(blocks.get(i).x, blocks.get(i).y));
       }
     }
+    */
+    
+    for (int i = 0; i < hitTest.size(); i++) {
+      if (hitTest.get(i).y == boardHeight) {
+        fill(255, 0, 0);
+        rect(0, boardHeight*scl, boardWidth*scl, scl);
+        hitBottom = true;
+      } else {
+        hitBottom = false;
+      }
+    }
+    
+    /* FIX THIS
+    for (int i = 0; i < boardBlocks.size(); i++) {
+      for (int j = 0; j < hitTest.size(); j++) {
+        if (hitTest.get(i).y == boardBlocks.get(i).y && hitTest.get(i).x == boardBlocks.get(i).x) {
+          hitBottom = true;
+        }
+      }
+    }
+    */
+    
+    if (hitBottom == true) {
+      for (int j = 0; j < blocks.size(); j++) {
+          boardBlocks.add(new Block(blocks.get(j).x, blocks.get(j).y));
+      }
+    }
+    
     
     // Check the sides (whether the shape is touching or not)
     /*
@@ -116,80 +145,65 @@ class Shapes {
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x+1, y));
       blocks.add(new Block(x+1, y+1));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
     } else if (currentShape == 1) {
       //LINE
       blocks.add(new Block(x, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x, y+2));
       blocks.add(new Block(x, y+3));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
     } else if (currentShape == 2) {
       //S-SHAPE
       blocks.add(new Block(x, y));
       blocks.add(new Block(x+1, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x-1, y+1));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
     } else if (currentShape == 3) {
       //S-INVERTED
       blocks.add(new Block(x, y));
       blocks.add(new Block(x-1, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x+1, y+1));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
     } else if (currentShape == 4) {
       //GIUK
       blocks.add(new Block(x, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x-1, y+1));
       blocks.add(new Block(x-2, y+1));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
     } else if (currentShape == 5) {
       //NIUN
       blocks.add(new Block(x, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x+1, y+1));
       blocks.add(new Block(x+2, y+1));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
     } else if (currentShape == 6) {
       //BADWORD
       blocks.add(new Block(x, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x+1, y+1));
       blocks.add(new Block(x-1, y+1));
+      hitTestCreation();
       
-      for (int i = 0; i < blocks.size(); i++) {
+    }
+  }
+  
+  void hitTestCreation() {
+     for (int i = 0; i < blocks.size(); i++) {
         hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
         hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-      }
-    }
-    
-    
-  
-  }
+        hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
+        hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
+      } 
+   }
 }
