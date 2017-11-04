@@ -24,14 +24,11 @@ class Shapes {
       rect(hitTest.get(j).x*scl, hitTest.get(j).y*scl, scl, scl);
     }
     */
-    //rect(blocks.get(0).x, blocks.get(0).y, scl, scl);
-    //rect(blocks.get(1).x, blocks.get(1).y, scl, scl);
-    //rect(blocks.get(2).x, blocks.get(2).y, scl, scl);
-    //rect(blocks.get(3).x, blocks.get(3).y, scl, scl);
-    //rect(x, y+(1*scl), scl, scl);
-    //rect(x+(1*scl), y, scl, scl);
-    //rect(x+(1*scl), y+(1*scl), scl, scl);
   }
+  
+  
+  
+  
   
   void update() {
     //float currentSpeed = 0;
@@ -47,97 +44,117 @@ class Shapes {
         
     //}
     
-    // Check the bottom (whether the shape is touching or not)
-    /*
-    if (blocks.get(3).y+1 == boardHeight) {
-      fill(255, 0, 0);
-      rect(0, boardHeight*scl, boardWidth*scl, scl);
-      
-      // Add blocks to the GameBoard
-      for (int i = 0; i < blocks.size(); i++) {
-        boardBlocks.add(new Block(blocks.get(i).x, blocks.get(i).y));
-      }
-    }
-    */
     
-    for (int i = 0; i < hitTest.size(); i++) {
-      if (hitTest.get(i).y == boardHeight) {
+    // Check the bottom (whether the shape is touching or not)
+    for (int i = 0; i < bottomTest.size(); i++) {
+      if (bottomTest.get(i).y == boardHeight) {
         fill(255, 0, 0);
         rect(0, boardHeight*scl, boardWidth*scl, scl);
         hitBottom = true;
-      } else {
-        hitBottom = false;
-      }
+      } 
     }
     
-    /* FIX THIS
-    for (int i = 0; i < boardBlocks.size(); i++) {
-      for (int j = 0; j < hitTest.size(); j++) {
-        if (hitTest.get(i).y == boardBlocks.get(i).y && hitTest.get(i).x == boardBlocks.get(i).x) {
+    for (int i = 0; i < bottomTest.size(); i++) {
+      for (int j = 0; j < boardBlocks02.length; j++) {
+        if (boardBlocks02[Math.round(bottomTest.get(i).y)][Math.round(bottomTest.get(i).x)] == 1) {
+          fill(255, 0, 0);
+          rect(0, boardHeight*scl, boardWidth*scl, scl);
           hitBottom = true;
         }
       }
     }
-    */
+    
     
     if (hitBottom == true) {
+      
       for (int j = 0; j < blocks.size(); j++) {
-          boardBlocks.add(new Block(blocks.get(j).x, blocks.get(j).y));
+        boardBlocks02[blocks.get(j).y][blocks.get(j).x] = 1;
+        //boardBlocks.add(new Block(blocks.get(j).x, blocks.get(j).y));
       }
-    }
-    
-    
-    // Check the sides (whether the shape is touching or not)
-    /*
-    if (blocks.get(0).x == 0) {
-      fill(255, 0, 0);
-      rect(-scl, 0, scl, scl*boardHeight);
-    } else if (blocks.get(2).x+1 == boardWidth) {
-      fill(255, 0, 0);
-      rect(boardWidth*scl, 0, scl, scl*boardHeight);
-    }
-    */
-    
-    // Check the sides (whether the shape is touching or not) using a HitTest
-    /*
-    for (int i = 0; i < hitTest.size(); i++) {
-      if (hitTest.get(i).x+1 == 0) {
-        fill(255, 0, 0);
-        rect(-scl, 0, scl, scl*boardHeight);
-      } else if (hitTest.get(i).x == boardWidth) {
-        fill(255, 0, 0);
-        rect(boardWidth*scl, 0, scl, scl*boardHeight);
+      
+      // 02 Check if the row is filled
+      /*
+      int checkRowFill = 0;
+      for (int i = 0; i < boardBlocks02.length; i++) {
+        for (int j = 0; j < boardBlocks02[i].length; i++) {
+          if (boardBlocks02[i][j] == 1) {
+            checkRowFill++;
+          }
+        }
+        if (checkRowFill == boardWidth) {
+          boardBlocks02[i] = null;
+          checkRowFill = 0;
+        }
       }
+      */
+      
+      
+      blocks.clear();
+      //hitTest.clear();
+      sideTest.clear();
+      bottomTest.clear();
+      shapeCreation();
     }
-    */
+    
   }
+  
+  
   
   void move(int xOffset, int yOffset) {
     
-    for (int j = 0; j < hitTest.size(); j++) {
-        if (hitTest.get(j).x+1 == 0 && xOffset < 0) {
+    // Check the sides (whether the shape is touching or not) using a SideTest
+    for (int j = 0; j < sideTest.size(); j++) {
+        if (sideTest.get(j).x+1 == 0 && xOffset < 0) {
         fill(255, 0, 0);
         rect(-scl, 0, scl, scl*boardHeight);
         xOffset = 0;
-        } else if (hitTest.get(j).x == boardWidth && xOffset > 0) {
+        } else if (sideTest.get(j).x == boardWidth && xOffset > 0) {
           fill(255, 0, 0);
           rect(boardWidth*scl, 0, scl, scl*boardHeight);
           xOffset = 0;
         }
+        
+        
+        
       }
+    // Check the sides (whether the shape is touching the stored Blocks) using a LEFT & RIGHT test  
+    for (int i = 0; i < blocks.size(); i++) {
+      for (int k = 0; k < boardBlocks02.length; k++) {
+          if (blocks.get(i).x > 0 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x-1)] == 1) {
+            fill(255, 0, 0);
+            rect(-scl, 0, scl, scl*boardHeight);
+            xOffset = 0;
+          } else if (blocks.get(i).x < boardWidth-1 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x+1)] == 1) {
+            fill(255, 0, 0);
+            rect(boardWidth*scl, 0, scl, scl*boardHeight);
+            xOffset = 0;
+          }
+        }
+    }
     
     for (int i = 0; i < blocks.size(); i++) {
       blocks.get(i).x += xOffset; 
       blocks.get(i).y += yOffset;
     }
+    /*
     for (int i = 0; i < hitTest.size(); i++) {
       hitTest.get(i).x += xOffset; 
       hitTest.get(i).y += yOffset;
+    }
+    */
+    for (int i = 0; i < sideTest.size(); i++) {
+      sideTest.get(i).x += xOffset; 
+      sideTest.get(i).y += yOffset;
+    }
+    for (int i = 0; i < bottomTest.size(); i++) {
+      bottomTest.get(i).x += xOffset; 
+      bottomTest.get(i).y += yOffset;
     }
   }
   
   
   void shapeCreation() {
+    hitBottom = false;
     
     if (currentShape == 0) {
       //SQUARE
@@ -198,12 +215,23 @@ class Shapes {
     }
   }
   
+  /*
   void hitTestCreation() {
      for (int i = 0; i < blocks.size(); i++) {
         hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
         hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
+        //hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
         hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
       } 
    }
+   */
+   void hitTestCreation() {
+     for (int i = 0; i < blocks.size(); i++) {
+        sideTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
+        sideTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
+        //hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
+        bottomTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
+      } 
+   }
+   
 }

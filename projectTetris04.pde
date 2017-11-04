@@ -9,9 +9,15 @@ int currentShape = 1;
 boolean hitBottom = false;
 
 ArrayList<Block> blocks = new ArrayList<Block>();
-ArrayList<Block> boardBlocks = new ArrayList<Block>();
 
-ArrayList<PVector> hitTest = new ArrayList<PVector>();
+//Board Architecture Experiment
+ArrayList<Block> boardBlocks = new ArrayList<Block>();
+int[][] boardBlocks02 = new int[boardHeight+1][boardWidth];
+
+//ArrayList<PVector> hitTest = new ArrayList<PVector>();
+
+ArrayList<PVector> sideTest = new ArrayList<PVector>();
+ArrayList<PVector> bottomTest = new ArrayList<PVector>();
 
 void setup() {
   size(800, 800);
@@ -56,37 +62,43 @@ void keyPressed() {
 
   if (key == '1') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
+    sideTest.clear();
+    bottomTest.clear();
     currentShape = 0;
     s.shapeCreation();
   } else if (key == '2') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
+    sideTest.clear();
+    bottomTest.clear();
     currentShape = 1;
     s.shapeCreation();
   } else if (key == '3') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
+    sideTest.clear();
+    bottomTest.clear();
     currentShape = 2;
     s.shapeCreation();
   } else if (key == '4') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
     currentShape = 3;
     s.shapeCreation();
   } else if (key == '5') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
     currentShape = 4;
     s.shapeCreation();
   } else if (key == '6') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
     currentShape = 5;
     s.shapeCreation();
   } else if (key == '7') {
     blocks.clear();
-    hitTest.clear();
+    //hitTest.clear();
     currentShape = 6;
     s.shapeCreation();
   }
