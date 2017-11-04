@@ -1,6 +1,7 @@
 class Shapes {
   
   
+  
   int x;
   int y;
   
@@ -41,7 +42,6 @@ class Shapes {
     //      blocks.get(0).y += scl;
     //      currentSpeed = 0;
     //    }
-        
     //}
     
     
@@ -73,20 +73,7 @@ class Shapes {
       }
       
       // 02 Check if the row is filled
-      /*
-      int checkRowFill = 0;
-      for (int i = 0; i < boardBlocks02.length; i++) {
-        for (int j = 0; j < boardBlocks02[i].length; i++) {
-          if (boardBlocks02[i][j] == 1) {
-            checkRowFill++;
-          }
-        }
-        if (checkRowFill == boardWidth) {
-          boardBlocks02[i] = null;
-          checkRowFill = 0;
-        }
-      }
-      */
+      
       
       
       blocks.clear();
@@ -95,6 +82,7 @@ class Shapes {
       bottomTest.clear();
       shapeCreation();
     }
+    
     
   }
   
@@ -120,11 +108,11 @@ class Shapes {
     // Check the sides (whether the shape is touching the stored Blocks) using a LEFT & RIGHT test  
     for (int i = 0; i < blocks.size(); i++) {
       for (int k = 0; k < boardBlocks02.length; k++) {
-          if (blocks.get(i).x > 0 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x-1)] == 1) {
+          if (blocks.get(i).x > 0 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x-1)] == 1 && xOffset < 0) {
             fill(255, 0, 0);
             rect(-scl, 0, scl, scl*boardHeight);
             xOffset = 0;
-          } else if (blocks.get(i).x < boardWidth-1 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x+1)] == 1) {
+          } else if (blocks.get(i).x < boardWidth-1 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x+1)] == 1 && xOffset > 0) {
             fill(255, 0, 0);
             rect(boardWidth*scl, 0, scl, scl*boardHeight);
             xOffset = 0;

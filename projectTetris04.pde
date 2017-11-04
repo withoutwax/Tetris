@@ -5,14 +5,15 @@ int scl = 20;
 int boardWidth = 10;
 int boardHeight = 20;
 float speed = 1;
-int currentShape = 1;
+int currentShape = 0;
 boolean hitBottom = false;
 
 ArrayList<Block> blocks = new ArrayList<Block>();
 
-//Board Architecture Experiment
 ArrayList<Block> boardBlocks = new ArrayList<Block>();
 int[][] boardBlocks02 = new int[boardHeight+1][boardWidth];
+
+int[] rowCount = new int[boardHeight+1];
 
 //ArrayList<PVector> hitTest = new ArrayList<PVector>();
 
@@ -24,7 +25,7 @@ void setup() {
   
   // Initialize the GameBoard
   b = new GameBoard(boardWidth, boardHeight);
-  s = new Shapes(boardWidth/2, 0);
+  s = new Shapes(boardWidth/2-1, 0);
   
   
 }
@@ -33,13 +34,22 @@ void setup() {
 void draw() {
   background(255, 255, 255);
   fill(255);
-  translate(160, 150);
+
+    translate(160, 150);
+    
+    rect(0, 0, b.boardWidth*scl, b.boardHeight*scl);
+
+    s.render();
+    b.render();
+    s.update();
+    b.update();
+     
   
-  rect(0, 0, b.boardWidth*scl, b.boardHeight*scl);
+  // DISPLAY ROW COUNT
+  for (int i = 0; i < rowCount.length; i++) {
+    text("ROW COUNT: " + rowCount[i], -100, 15+(i*scl));
+  }
   
-  s.render();
-  s.update();
-  b.render();
 }
 
 
@@ -61,44 +71,31 @@ void keyPressed() {
 
 
   if (key == '1') {
-    blocks.clear();
-    //hitTest.clear();
-    sideTest.clear();
-    bottomTest.clear();
+    clearArray();
     currentShape = 0;
     s.shapeCreation();
   } else if (key == '2') {
-    blocks.clear();
-    //hitTest.clear();
-    sideTest.clear();
-    bottomTest.clear();
+    clearArray();
     currentShape = 1;
     s.shapeCreation();
   } else if (key == '3') {
-    blocks.clear();
-    //hitTest.clear();
-    sideTest.clear();
-    bottomTest.clear();
+    clearArray();
     currentShape = 2;
     s.shapeCreation();
   } else if (key == '4') {
-    blocks.clear();
-    //hitTest.clear();
+    clearArray();
     currentShape = 3;
     s.shapeCreation();
   } else if (key == '5') {
-    blocks.clear();
-    //hitTest.clear();
+    clearArray();
     currentShape = 4;
     s.shapeCreation();
   } else if (key == '6') {
-    blocks.clear();
-    //hitTest.clear();
+    clearArray();
     currentShape = 5;
     s.shapeCreation();
   } else if (key == '7') {
-    blocks.clear();
-    //hitTest.clear();
+    clearArray();
     currentShape = 6;
     s.shapeCreation();
   }
@@ -117,4 +114,12 @@ void keyPressed() {
       
   //  }
   //}
+}
+
+
+void clearArray() {
+  blocks.clear();
+    //hitTest.clear();
+  sideTest.clear();
+  bottomTest.clear();
 }
