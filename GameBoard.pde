@@ -54,6 +54,7 @@ class GameBoard {
   void level() {
     if (currentScore == 5) {
       level++;
+      frameSpeed++;
       currentScore = 0;
     }
   }
@@ -90,9 +91,14 @@ class GameBoard {
     textAlign(CENTER, TOP);
     text("PRESS 'R' TO RESTART", b.boardWidth/2*scl, b.boardHeight/2*scl);
     blocks.clear();
-    sideTest.clear();
-    bottomTest.clear();
-    boardBlocks.clear();
+      sideTest.clear();
+      bottomTest.clear();
+      for (int i = 0; i < boardBlocks02.length; i++) {
+        for (int j = 0; j < boardBlocks02[i].length; j++) {
+          boardBlocks02[i][j] = 0;
+        }
+        rowCount[i] = 0;
+      }
     noLoop();
         
     if (score > highScore) {

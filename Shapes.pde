@@ -75,8 +75,9 @@ class Shapes {
       sideTest.clear();
       bottomTest.clear();
       currentShape = Math.round(random(6));
-      frameRate(4);
       shapeCreation();
+      
+      frameRate(frameSpeed);
     }
 
     

@@ -1,4 +1,5 @@
 GameBoard b;
+PFont gotham;
 Shapes s;
 Theme theme;
 
@@ -30,14 +31,17 @@ ArrayList<PVector> bottomTest = new ArrayList<PVector>();
 int score = 0;
 int highScore = 0;
 int level = 0;
-
+int frameSpeed = 2;
 
 
 void setup() {
   size(800, 800);
-  frameRate(4);
+  frameRate(frameSpeed);
   theme = new Theme();
   theme.theme01();
+  gotham = createFont("Gotham-Bold.otf", 12);
+  textFont(gotham);
+  
   // Initialize the GameBoard
   b = new GameBoard(boardWidth, boardHeight);
   s = new Shapes(boardWidth/2-1, 0);
@@ -110,10 +114,6 @@ void keyPressed() {
   
   if (key == ' ') {
     frameRate(200);
-  } else if (key == 'r') {
-    setup();
-    loop();
-    score = 0;
   } else if (key == 'p') {
     noLoop();
   } else if (key == 'o') {
@@ -171,13 +171,24 @@ void keyPressed() {
       s.shapeCreation();
     }
   }
-
   
-  if (key == 'r') {
-    clearArray();
-    orientationState = true;
-    s.shapeCreation();
+  if (debuggerMode == false) {
+    if (key == 'r') {
+      setup();
+      loop();
+      score = 0;
+      
+      s.shapeCreation();
+      
+    }
+  } else if (debuggerMode == true) {
+    if (key == 'r') {
+      clearArray();
+      orientationState = true;
+      s.shapeCreation();
   }
+  }
+  
   
 }
 
