@@ -116,12 +116,20 @@ class Shapes {
         } else if (sideTest.get(j).x == boardWidth && xOffset > 0) {
         //  fill(255, 0, 0); DEBUGGER 
         //  rect(boardWidth*scl, 0, scl, scl*boardHeight); DEBUGGER 
+          
           xOffset = 0;
         }
-        
-        
-        
       }
+      
+      for (int i = 0; i < blocks.size(); i++) {
+      if (blocks.get(i).x-2 < 0) {
+          wallHitLeft = true;
+        } else if (blocks.get(i).x+2 == boardWidth) {
+          wallHitRight = true;
+        }
+      }
+      
+      
     // Check the sides (whether the shape is touching the stored Blocks) using a LEFT & RIGHT test  
     for (int i = 0; i < blocks.size(); i++) {
       for (int k = 0; k < boardBlocks02.length; k++) {
@@ -155,6 +163,7 @@ class Shapes {
       bottomTest.get(i).x += xOffset; 
       bottomTest.get(i).y += yOffset;
     }
+    
   }
   
   
@@ -271,6 +280,16 @@ class Shapes {
         blocks.get(3).x += 2;
         blocks.get(3).y -= 2;
         
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 1;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 2;
+          }
+        }
+        
         hitTestCreation();
         shapeOrientation++;
         orientationState = false;
@@ -292,7 +311,6 @@ class Shapes {
       }
      }   
    }
-   
    void sRotate() {
      if (orientationState == true) {
       if (shapeOrientation == 0) {
@@ -319,6 +337,16 @@ class Shapes {
         blocks.get(1).y += 1;
         blocks.get(2).y += 1;
         blocks.get(3).x -= 1;
+        
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 0;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 1;
+          }
+        }
         
         hitTestCreation();
         shapeOrientation--;
@@ -352,6 +380,16 @@ class Shapes {
         blocks.get(1).y += 1;
         blocks.get(2).y += 1;
         blocks.get(3).x += 1;
+        
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 1;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 0;
+          }
+        }
         
         hitTestCreation();
         shapeOrientation--;
@@ -387,6 +425,16 @@ class Shapes {
         blocks.get(3).x += 2;
         blocks.get(3).y += 1;
         
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 0;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 1;
+          }
+        }
+        
         hitTestCreation();
         shapeOrientation++;
         orientationState = false;
@@ -415,6 +463,16 @@ class Shapes {
         blocks.get(2).x -= 1;
         blocks.get(3).x -= 2;
         blocks.get(3).y -= 1;
+        
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 1;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 0;
+          }
+        }
         
         hitTestCreation();
         shapeOrientation = 0;
@@ -449,6 +507,16 @@ class Shapes {
         blocks.get(3).y -= 2;
         blocks.get(3).x -= 1;
         
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 1;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 0;
+          }
+        }
+        
         hitTestCreation();
         shapeOrientation++;
         orientationState = false;
@@ -477,6 +545,16 @@ class Shapes {
         blocks.get(2).y += 1;
         blocks.get(3).y += 2;
         blocks.get(3).x += 1;
+        
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 0;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 1;
+          }
+        }
         
         hitTestCreation();
         shapeOrientation = 0;
@@ -513,6 +591,16 @@ class Shapes {
         blocks.get(3).x += 1;
         blocks.get(3).y += 1;
         
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 1;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 1;
+          }
+        }
+        
         hitTestCreation();
         shapeOrientation++;
         orientationState = false;
@@ -543,6 +631,16 @@ class Shapes {
         blocks.get(2).y += 1;
         blocks.get(3).x -= 1;
         blocks.get(3).y -= 1;
+        
+        if (wallHitLeft == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x += 1;
+          }
+        } if (wallHitRight == true) {
+          for (int i = 0; i < blocks.size(); i++) {
+            blocks.get(i).x -= 1;
+          }
+        }
         
         hitTestCreation();
         shapeOrientation = 0;

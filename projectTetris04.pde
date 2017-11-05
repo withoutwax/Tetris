@@ -9,6 +9,8 @@ float speed = 1;
 int currentShape = Math.round(random(6));
 int shapeOrientation = 0;
 boolean orientationState = false;
+boolean wallHitLeft = false;
+boolean wallHitRight = false;
 boolean hitBottom = false;
 
 boolean debuggerMode = false;
@@ -68,6 +70,16 @@ void draw() {
     for (int i = 0; i < rowCount.length-1; i++) {
       text("ROW COUNT: " + rowCount[i], -100, 15+(i*scl));
     }
+    
+    if (wallHitLeft == true) {
+      text("WALL HIT LEFT: TRUE", 0, -scl);
+    } else if (wallHitRight == true) {
+      text("WALL HIT RIGHT: TRUE", 0, -scl);
+    } else if (wallHitLeft == false && wallHitRight == false) {
+      text("WALL HIT: FALSE", 0, -scl);
+    }
+    
+    
   } else {
   }
   
@@ -89,8 +101,10 @@ void keyPressed() {
         s.move(0, 1);
       } else if (keyCode == LEFT) {
         s.move(-1, 0);
+        wallHitRight = false;
       } else if (keyCode == RIGHT) {
         s.move(1, 0); 
+        wallHitLeft = false;
       }
   }
   
@@ -160,9 +174,9 @@ void keyPressed() {
 
   
   if (key == 'r') {
-    //clearArray();
+    clearArray();
     orientationState = true;
-    //s.shapeCreation();
+    s.shapeCreation();
   }
   
 }
