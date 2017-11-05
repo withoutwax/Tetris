@@ -18,7 +18,7 @@ class Shapes {
     for (int i = 0; i < blocks.size(); i++) {
       rect(blocks.get(i).x*scl, blocks.get(i).y*scl, scl, scl);
     }
-    /*
+    /* DEBUGGER
     for (int j = 0; j < hitTest.size(); j++) {
       fill(255, 0, 0);
       rect(hitTest.get(j).x*scl, hitTest.get(j).y*scl, scl, scl);
@@ -28,27 +28,25 @@ class Shapes {
   
   
   
-  
-  
   void update() {
-    //float currentSpeed = 0;
     
-    //for (int i = 0; i < 20; i++) {
-      
-    //    currentSpeed = currentSpeed + speed;
-        
-    //    if (currentSpeed == 20) {
-    //      blocks.get(0).y += scl;
-    //      currentSpeed = 0;
-    //    }
-    //}
+    
+    for (int i = 0; i < blocks.size(); i++) {
+      blocks.get(i).y += 1;
+    }
+    for (int i = 0; i < bottomTest.size(); i++) {
+      bottomTest.get(i).y += 1;
+    }
+    for (int i = 0; i < sideTest.size(); i++) {
+      sideTest.get(i).y += 1;
+    }
     
     
     // Check the bottom (whether the shape is touching or not)
     for (int i = 0; i < bottomTest.size(); i++) {
       if (bottomTest.get(i).y == boardHeight) {
-        fill(255, 0, 0);
-        rect(0, boardHeight*scl, boardWidth*scl, scl);
+        //fill(255, 0, 0); DEBUGGER
+        //rect(0, boardHeight*scl, boardWidth*scl, scl); DEBUGGER
         hitBottom = true;
       } 
     }
@@ -56,8 +54,8 @@ class Shapes {
     for (int i = 0; i < bottomTest.size(); i++) {
       for (int j = 0; j < boardBlocks02.length; j++) {
         if (boardBlocks02[Math.round(bottomTest.get(i).y)][Math.round(bottomTest.get(i).x)] == 1) {
-          fill(255, 0, 0);
-          rect(0, boardHeight*scl, boardWidth*scl, scl);
+          //fill(255, 0, 0); DEBUGGER
+          //rect(0, boardHeight*scl, boardWidth*scl, scl); DEBUGGER
           hitBottom = true;
         }
       }
@@ -67,23 +65,22 @@ class Shapes {
     if (hitBottom == true) {
       
       for (int j = 0; j < blocks.size(); j++) {
-        boardBlocks02[blocks.get(j).y][blocks.get(j).x] = 1;
-        //boardBlocks.add(new Block(blocks.get(j).x, blocks.get(j).y));
+        boardBlocks02[blocks.get(j).y-1][blocks.get(j).x] = 1;
       }
-      
-      // 02 Check if the row is filled
-      
-      
-      
       blocks.clear();
       //hitTest.clear();
       sideTest.clear();
       bottomTest.clear();
+      currentShape = Math.round(random(6));
+      frameRate(4);
       shapeCreation();
     }
+
+    
+    
     
     // Line Rotation
-    
+
     if (currentShape == 0) {
       
     } else if (currentShape == 1) {
@@ -110,12 +107,12 @@ class Shapes {
     // Check the sides (whether the shape is touching or not) using a SideTest
     for (int j = 0; j < sideTest.size(); j++) {
         if (sideTest.get(j).x+1 == 0 && xOffset < 0) {
-        fill(255, 0, 0);
-        rect(-scl, 0, scl, scl*boardHeight);
+        // fill(255, 0, 0); DEBUGGER
+        // rect(-scl, 0, scl, scl*boardHeight); DEBUGGER
         xOffset = 0;
         } else if (sideTest.get(j).x == boardWidth && xOffset > 0) {
-          fill(255, 0, 0);
-          rect(boardWidth*scl, 0, scl, scl*boardHeight);
+        //  fill(255, 0, 0); DEBUGGER 
+        //  rect(boardWidth*scl, 0, scl, scl*boardHeight); DEBUGGER 
           xOffset = 0;
         }
         
@@ -126,12 +123,12 @@ class Shapes {
     for (int i = 0; i < blocks.size(); i++) {
       for (int k = 0; k < boardBlocks02.length; k++) {
           if (blocks.get(i).x > 0 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x-1)] == 1 && xOffset < 0) {
-            fill(255, 0, 0);
-            rect(-scl, 0, scl, scl*boardHeight);
+            //fill(255, 0, 0); DEBUGGER
+            //rect(-scl, 0, scl, scl*boardHeight); DEBUGGER
             xOffset = 0;
           } else if (blocks.get(i).x < boardWidth-1 && boardBlocks02[Math.round(blocks.get(i).y)][Math.round(blocks.get(i).x+1)] == 1 && xOffset > 0) {
-            fill(255, 0, 0);
-            rect(boardWidth*scl, 0, scl, scl*boardHeight);
+            //fill(255, 0, 0); DEBUGGER
+            //rect(boardWidth*scl, 0, scl, scl*boardHeight); DEBUGGER
             xOffset = 0;
           }
         }
@@ -141,7 +138,7 @@ class Shapes {
       blocks.get(i).x += xOffset; 
       blocks.get(i).y += yOffset;
     }
-    /*
+    /* DEBUGGER
     for (int i = 0; i < hitTest.size(); i++) {
       hitTest.get(i).x += xOffset; 
       hitTest.get(i).y += yOffset;
@@ -163,7 +160,7 @@ class Shapes {
   
   
   
-  /*
+  /* DEBUGGER
   void hitTestCreation() {
      for (int i = 0; i < blocks.size(); i++) {
         hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
@@ -242,12 +239,13 @@ class Shapes {
     }
   }
    
+   
    void hitTestCreation() {
      for (int i = 0; i < blocks.size(); i++) {
         sideTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
         sideTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
         //hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
-        bottomTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
+        bottomTest.add(new PVector(blocks.get(i).x, blocks.get(i).y));
       } 
    }
    
@@ -255,6 +253,7 @@ class Shapes {
    
    
    // ROTATION MECHANISM
+   
   void lineRotate() {
      if (orientationState == true) {
       if (shapeOrientation == 0) {
