@@ -14,6 +14,8 @@ class Shapes {
   
   
   void render() {
+    stroke(theme.shapeStroke);
+    fill(theme.shape);
     
     for (int i = 0; i < blocks.size(); i++) {
       rect(blocks.get(i).x*scl, blocks.get(i).y*scl, scl, scl);
@@ -30,15 +32,16 @@ class Shapes {
   
   void update() {
     
-    
-    for (int i = 0; i < blocks.size(); i++) {
-      blocks.get(i).y += 1;
-    }
-    for (int i = 0; i < bottomTest.size(); i++) {
-      bottomTest.get(i).y += 1;
-    }
-    for (int i = 0; i < sideTest.size(); i++) {
-      sideTest.get(i).y += 1;
+    if (debuggerMode == false) {
+      for (int i = 0; i < blocks.size(); i++) {
+        blocks.get(i).y += 1;
+      }
+      for (int i = 0; i < bottomTest.size(); i++) {
+        bottomTest.get(i).y += 1;
+      }
+      for (int i = 0; i < sideTest.size(); i++) {
+        sideTest.get(i).y += 1;
+      }
     }
     
     

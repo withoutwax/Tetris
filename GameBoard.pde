@@ -55,7 +55,9 @@ class GameBoard {
   
   
   void render() {
-    fill(0, 0, 0);
+    stroke(theme.blockStroke);
+    fill(theme.block);
+    
     
     for (int i = 0; i < boardBlocks02.length; i++) {
       for (int j = 0; j < boardBlocks02[i].length; j++) {
