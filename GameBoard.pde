@@ -2,6 +2,7 @@ class GameBoard {
   
   int boardWidth;
   int boardHeight;
+  int currentScore = 0;
   
   GameBoard(int w, int h) {
     
@@ -40,17 +41,22 @@ class GameBoard {
   
   
   void lowerBlocks(int i) {
-    
     for (int j = i; j > 0; j--) {
       for (int k = 0; k < boardBlocks02[j].length; k++) {
         
         boardBlocks02[j][k] = boardBlocks02[j-1][k];
       }
     }
+          score++;
+      b.currentScore++;
   }
   
-  
-  
+  void level() {
+    if (currentScore == 5) {
+      level++;
+      currentScore = 0;
+    }
+  }
   
   
   
@@ -67,6 +73,32 @@ class GameBoard {
       }
     }
     
+  }
+  
+  void death() {
+    
+    if (rowCount[0] > 1) {
+      gameOver();
+    }
+  }
+  
+  void gameOver() {
+    fill(255, 0, 0);
+    textSize(30);
+    textAlign(CENTER);
+    text("GAME OVER", b.boardWidth/2*scl, b.boardHeight/2*scl);
+    textAlign(CENTER, TOP);
+    text("PRESS 'R' TO RESTART", b.boardWidth/2*scl, b.boardHeight/2*scl);
+    blocks.clear();
+    sideTest.clear();
+    bottomTest.clear();
+    boardBlocks.clear();
+    noLoop();
+        
+    if (score > highScore) {
+      highScore = score;
+    }
+    level = 0; 
   }
   
   

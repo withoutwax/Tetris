@@ -59,7 +59,8 @@ void draw() {
     b.update();
     s.render();
     b.render();
-    
+    b.level();
+    b.death();
   
   // DISPLAY ROW COUNT :: DEBUGGER
   if (debuggerMode == true) {
