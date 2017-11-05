@@ -1,13 +1,12 @@
 class Shapes {
   
-  
-  
   int x;
   int y;
   
   Shapes(int xPos, int yPos) {
     x = xPos;
     y = yPos;
+    
     
     shapeCreation();
   }
@@ -83,6 +82,24 @@ class Shapes {
       shapeCreation();
     }
     
+    // Line Rotation
+    
+    if (currentShape == 0) {
+      
+    } else if (currentShape == 1) {
+      lineRotate();
+    } else if (currentShape == 2) {
+      sRotate();
+    } else if (currentShape == 3) {
+      sIRotate();
+    } else if (currentShape == 4) {
+      giukRotate();
+    } else if (currentShape == 5) {
+      niunRotate();
+    } else if (currentShape == 6) {
+      badWordRotate();
+    }
+    
     
   }
   
@@ -141,8 +158,30 @@ class Shapes {
   }
   
   
+  
+  
+  
+  
+  
+  /*
+  void hitTestCreation() {
+     for (int i = 0; i < blocks.size(); i++) {
+        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
+        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
+        //hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
+        hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
+      } 
+   }
+   */
+   
+   
+   
+   
   void shapeCreation() {
     hitBottom = false;
+    shapeOrientation = 0;
+    x = boardWidth/2-1;
+    y = 0;
     
     if (currentShape == 0) {
       //SQUARE
@@ -157,7 +196,7 @@ class Shapes {
       blocks.add(new Block(x, y));
       blocks.add(new Block(x, y+1));
       blocks.add(new Block(x, y+2));
-      blocks.add(new Block(x, y+3));
+      blocks.add(new Block(x, y+3));        
       hitTestCreation();
       
     } else if (currentShape == 2) {
@@ -202,17 +241,7 @@ class Shapes {
       
     }
   }
-  
-  /*
-  void hitTestCreation() {
-     for (int i = 0; i < blocks.size(); i++) {
-        hitTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
-        hitTest.add(new PVector(blocks.get(i).x+1, blocks.get(i).y));
-        //hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
-        hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
-      } 
-   }
-   */
+   
    void hitTestCreation() {
      for (int i = 0; i < blocks.size(); i++) {
         sideTest.add(new PVector(blocks.get(i).x-1, blocks.get(i).y));
@@ -220,6 +249,304 @@ class Shapes {
         //hitTest.add(new PVector(blocks.get(i).x, blocks.get(i).y-1));
         bottomTest.add(new PVector(blocks.get(i).x, blocks.get(i).y+1));
       } 
+   }
+   
+   
+   
+   
+   // ROTATION MECHANISM
+  void lineRotate() {
+     if (orientationState == true) {
+      if (shapeOrientation == 0) {
+        sideTest.clear();
+        bottomTest.clear();
+        
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(0).y += 1;
+        blocks.get(2).x += 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).x += 2;
+        blocks.get(3).y -= 2;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 1) {
+        sideTest.clear();
+        bottomTest.clear();
+        
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(0).y -= 1;
+        blocks.get(2).x -= 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).x -= 2;
+        blocks.get(3).y += 2;
+        
+        hitTestCreation();
+        shapeOrientation--;
+        orientationState = false;
+      }
+     }   
+   }
+   
+   void sRotate() {
+     if (orientationState == true) {
+      if (shapeOrientation == 0) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(1).x -= 2;
+        blocks.get(1).y -= 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).x += 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 1) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(1).x += 2;
+        blocks.get(1).y += 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).x -= 1;
+        
+        hitTestCreation();
+        shapeOrientation--;
+        orientationState = false;
+      }
+     }   
+   }
+   void sIRotate() {
+     if (orientationState == true) {
+      if (shapeOrientation == 0) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(1).x += 2;
+        blocks.get(1).y -= 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).x -= 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 1) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(1).x -= 2;
+        blocks.get(1).y += 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).x += 1;
+        
+        hitTestCreation();
+        shapeOrientation--;
+        orientationState = false;
+      }
+     }   
+   }
+   
+   void giukRotate() {
+     if (orientationState == true) {
+      if (shapeOrientation == 0) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).y += 1;
+        blocks.get(1).x -= 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).x += 1;
+        blocks.get(3).y -= 2;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 1) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(1).y -= 1;
+        blocks.get(2).x += 1;
+        blocks.get(3).x += 2;
+        blocks.get(3).y += 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 2) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).y -= 1;
+        blocks.get(1).x += 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).x -= 1;
+        blocks.get(3).y += 2;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      }
+      else if (shapeOrientation == 3) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(1).y += 1;
+        blocks.get(2).x -= 1;
+        blocks.get(3).x -= 2;
+        blocks.get(3).y -= 1;
+        
+        hitTestCreation();
+        shapeOrientation = 0;
+        orientationState = false;
+      }
+     }   
+   }
+   void niunRotate() {
+     if (orientationState == true) {
+      if (shapeOrientation == 0) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(1).y -= 1;
+        blocks.get(2).x -= 1;
+        blocks.get(3).y += 1;
+        blocks.get(3).x -= 2;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 1) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).y += 1;
+        blocks.get(1).x += 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).y -= 2;
+        blocks.get(3).x -= 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 2) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(1).y += 1;
+        blocks.get(2).x += 1;
+        blocks.get(3).y -= 1;
+        blocks.get(3).x += 2;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      }
+      else if (shapeOrientation == 3) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).y -= 1;
+        blocks.get(1).x -= 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).y += 2;
+        blocks.get(3).x += 1;
+        
+        hitTestCreation();
+        shapeOrientation = 0;
+        orientationState = false;
+      }
+     }   
+   }
+   void badWordRotate() {
+     if (orientationState == true) {
+      if (shapeOrientation == 0) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(0).y += 1;
+        blocks.get(2).x -= 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).x += 1;
+        blocks.get(3).y -= 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 1) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(0).y += 1;
+        blocks.get(2).x -= 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).x += 1;
+        blocks.get(3).y += 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      } else if (shapeOrientation == 2) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x -= 1;
+        blocks.get(0).y -= 1;
+        blocks.get(2).x += 1;
+        blocks.get(2).y -= 1;
+        blocks.get(3).x -= 1;
+        blocks.get(3).y += 1;
+        
+        hitTestCreation();
+        shapeOrientation++;
+        orientationState = false;
+      }
+      else if (shapeOrientation == 3) {
+        sideTest.clear();
+        bottomTest.clear();
+
+        //ROTATE
+        blocks.get(0).x += 1;
+        blocks.get(0).y -= 1;
+        blocks.get(2).x += 1;
+        blocks.get(2).y += 1;
+        blocks.get(3).x -= 1;
+        blocks.get(3).y -= 1;
+        
+        hitTestCreation();
+        shapeOrientation = 0;
+        orientationState = false;
+      }
+     }   
    }
    
 }

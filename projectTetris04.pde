@@ -6,6 +6,8 @@ int boardWidth = 10;
 int boardHeight = 20;
 float speed = 1;
 int currentShape = 0;
+int shapeOrientation = 0;
+boolean orientationState = false;
 boolean hitBottom = false;
 
 ArrayList<Block> blocks = new ArrayList<Block>();
@@ -20,6 +22,10 @@ int[] rowCount = new int[boardHeight+1];
 ArrayList<PVector> sideTest = new ArrayList<PVector>();
 ArrayList<PVector> bottomTest = new ArrayList<PVector>();
 
+
+
+
+
 void setup() {
   size(800, 800);
   
@@ -29,6 +35,9 @@ void setup() {
   
   
 }
+
+
+
 
 
 void draw() {
@@ -46,10 +55,15 @@ void draw() {
      
   
   // DISPLAY ROW COUNT
-  for (int i = 0; i < rowCount.length; i++) {
+  for (int i = 0; i < rowCount.length-1; i++) {
     text("ROW COUNT: " + rowCount[i], -100, 15+(i*scl));
   }
   
+  /*
+  for (int i = 0; i < blocks.size(); i++) {
+    rect((blocks.get(i).x+10)*scl, (blocks.get(i).y+10)*scl, scl, scl);
+  }
+  */
 }
 
 
@@ -100,7 +114,12 @@ void keyPressed() {
     s.shapeCreation();
   }
 
-
+  
+  if (key == 'r') {
+    //clearArray();
+    orientationState = true;
+    //s.shapeCreation();
+  }
   
   
   //if (key == 'n') {
